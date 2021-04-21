@@ -35,6 +35,12 @@ public class IndexAndListFacesExample {
         List<CompareFacesMatch> matchingFaces = compareFacesResult.getFaceMatches();
         matchingFaces.forEach(m -> System.out.println(m.getFace().getConfidence()));
 
+        DetectLabelsRequest detectLabelsRequest = new DetectLabelsRequest();
+        detectLabelsRequest.setImage(getImageUtil(S3_BUCKET, "sarah.jpg"));
+
+        DetectLabelsResult labelsResult = amazonRekognition.detectLabels(detectLabelsRequest);
+        labelsResult.getLabels().forEach(label -> System.out.println(label.getName() + ":" + label.getConfidence())  );
+
     }
 
     private static Image getImageUtil(String bucket, String key) {
